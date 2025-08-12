@@ -40,6 +40,59 @@ The dataset includes flight details such as airline, route, stops, duration, tic
 * **Views**: Pre-aggregated BI tables for fast reporting.
 ---
 
+## 📊 Power BI Dashboard
+---
+The dashboard contains **5 pages**:
+1. **Executive Overview**
+2.  **Airline Performance**
+3.  **Route Analysis**
+4.  **Pricing & Booking**
+5.  **Class & Customer Segmentation**
+---
+1️⃣ Power Query — Data Preparation Steps-
+* Step 1: Import file.
+* Load the CSV (300k+ rows) from your folder.
+* Ensure column data types:
+* duration → Decimal Number
+* days_left → Whole Number
+* price → Whole Number
+*  Date columns (if you have actual dates) → Date
+* Step 2: Clean Columns
+* Remove duplicates (if any).
+* Trim & clean text in columns.
+* Step 3: Add Derived Columns in Power Query.
+* Trip Type : Conencting, Direct
+* Route : [source_city] & " → " & [destination_city].
+* Price Category : Low, Meedium, High.
+---
+2️⃣ DAX Measures
+* Add Measures and Core KPIs.
+---
+3️⃣Insights
+### Price & Category
+* Low-cost flights (<₹X) = {PctLow}% of total.
+* High-cost flights (>₹Y) = {PctHigh}% of total.
+* Avg price (Economy) = ₹{AvgEco}, (Business) = ₹{AvgBus}.
+### Routes & Cities
+* Top route: {Source} → {Destination} ({CountFlights} flights).
+* Highest avg fare city: {City} (₹{AvgFare}).
+* Cheapest route: {Source} → {Destination} (₹{Fare}).
+### Time & Booking
+* Booking >{Days} days early saves ₹{Savings}.
+* Evening flights cost ₹{Diff} more/less than morning.
+* Cheapest departure slot: {TimeSlot}.
+### Stops & Duration
+Direct flights cost {Diff%} more/less than with stops.
+Longest flight: {Duration} hrs ({Route}).
+Avg duration with {Stops} stops = {AvgDuration} hrs.
+### Airline & Class
+* Cheapest airline: {Airline} (₹{AvgFare}).
+* Business class costs {Diff%} more than Economy.
+* Widest class gap: {Route} (₹{Gap}).
+---
+
+
+
 -- Create Database & Tables
 ```sql
 DROP DATABASE IF EXISTS AirlinesDataset;
